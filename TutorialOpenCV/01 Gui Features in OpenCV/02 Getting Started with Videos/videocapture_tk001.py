@@ -117,13 +117,22 @@ class Application(tk.Frame, object):
             else:
                 self.originalImageAxes.set_data(image_original_rgb)
 
-            self.originalCanvas.draw()
-            self.originalCanvas.flush_events()
+            if self.currentFrame == 0:
+                self.processedImageAxes = self.processedAxes.imshow(image_original_rgb)
+            else:
+                self.processedImageAxes.set_data(image_original_rgb)
 
+            self.updateFigures()
 
             self.currentFrame = self.currentFrame + 1
             self.after(1, self.processVideo)
+    
+    def updateFigures(self):
+        self.originalCanvas.draw()
+        self.originalCanvas.flush_events()
 
+        self.processedCanvas.draw()
+        self.processedCanvas.flush_events()
 
 
 
